@@ -11,159 +11,29 @@
 
 ;;; Update by adding lines
 
-
 ;; Initialize package sources
 
 (require 'package)
+(eval-when-compile
+  (require 'cl-lib))
 
 (setq package-archives '(("elpa"   . "https://elpa.gnu.org/packages/")
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-                         ("melpa"  . "https://melpa.org/packages/")
-                         ))
+                         ("melpa"  . "https://melpa.org/packages/")))
 
 (setq package-archive-priorities '(("melpa"  . 50)
                                    ("nongnu" . 30)
-                                   ("elpa"   . 10)
-                                   ))
+                                   ("elpa"   . 10)))
 
 (package-initialize)
 (package-refresh-contents)
 
+(setq native-comp-jit-compilation nil)
 (defvar mypackages
-  '(
-    ;;; init-packages
-    gnu-elpa-keyring-update
+  '(gnu-elpa-keyring-update
     quelpa
     elpa-mirror
-    auto-package-update
-    ;;; init
-    ;; esup
-    gcmh
-    ;;; init-chinese
-    pyim
-    osx-dictionary
-    fanyi
-    go-translate
-    ;;; init-completion
-    yasnippet
-    ;; yasnippet-snippets
-    ;; company
-    ;; cape
-    ;; corfu
-    ;; corfu-terminal
-    ;;; init-edit
-    vundo
-    avy
-    hl-todo
-    speed-type
-    flycheck
-    ;;; init-file
-    dired-git-info
-    dired-rsync
-    diredfl
-    ;;; init-keymaps
-    meow
-    keyfreq
-    keycast
-    ;;; init-minibuffer
-    vertico
-    marginalia
-    orderless
-    consult
-    consult-dir
-    ;; consult-lsp
-    consult-yasnippet
-    embark
-    embark-consult
-    ;;; init-ui
-    posframe
-    all-the-icons
-    all-the-icons-dired
-    all-the-icons-ibuffer
-    beacon
-    doom-themes
-    doom-modeline
-    diminish
-    rainbow-delimiters
-    symbol-overlay
-    burly
-    winum
-    shackle
-    ;;; init-vsc
-    magit
-    ;;; vc-msg
-    blamer
-    diff-hl
-    ;;; init-prog
-    ;; lsp-mode
-    ;; lsp-pyright
-    ;; lsp-ui
-    ;; dap-mode
-    ;; eglot
-    citre
-    format-all
-    aggressive-indent
-    devdocs-browser
-    germanium
-    ;;; init-applescript
-    applescript-mode
-    ;;; init-docker
-    dockerfile-mode
-    docker-compose-mode
-    ;;; init-latex
-    ;; auctex
-    ;;; init-lisp
-    elisp-demos
-    sly
-    suggest
-    ;;; init-lua
-    lua-mode
-    ;;; init-markdown
-    markdown-mode
-    markdown-toc
-    ;;; init-org
-    org
-    org-contrib
-    org-appear
-    org-download
-    iscroll
-    org-transclusion
-    toc-org
-    ox-pandoc
-    anki-editor
-    habitica
-    org-roam
-    emacsql-sqlite-builtin
-    org-roam-ui
-    ;;; init-ruby
-    ruby-mode
-    ;;; init-sh
-    vterm
-    vterm-toggle
-    ;;; init-web
-    web-mode
-    emmet-mode
-    typescript-mode
-    impatient-mode
-    ;;; init-serialization
-    json-mode
-    yaml-mode
-    ;;; init-blog
-    org-static-blog
-    ;;; init-browser
-    pdf-tools
-    nov
-    ;;; init-draw
-    plantuml-mode
-    osm
-    ;;; init-gnus
-    ;; nntwitter
-    ;;; init-leetcode
-    leetcode
-    ;;; init-chat
-    ;; ement
-    ;; mastodon
-    )
+    auto-package-update)
   "A list of packages to ensure are installed at launch.")
 
 ;; (setq package-pinned-packages '((telega . "melpa-stable")
@@ -176,7 +46,6 @@
             (package-install package)))
       mypackages)
 
-
 ;; quelpa packages https://github.com/quelpa/quelpa
 
 (setq quelpa-checkout-melpa-p nil
@@ -184,53 +53,73 @@
       quelpa-melpa-recipe-stores nil
       quelpa-git-clone-depth 1)
 
-(quelpa '(on :fetcher github :repo "ajgrf/on.el"))
-
-(quelpa '(pyim-tsinghua-dict
-          :fetcher github
-          :repo "redguardtoo/pyim-tsinghua-dict"
-          :files ("*.el" "*.pyim")))
-
-;; (quelpa '(cape-yasnippet :fetcher github :repo "elken/cape-yasnippet"))
-
-(quelpa '(color-rg :fetcher github :repo "manateelazycat/color-rg"))
-
-(quelpa '(fingertip :fetcher github :repo "manateelazycat/fingertip"))
-
-(quelpa '(thing-edit :fetcher github :repo "manateelazycat/thing-edit"))
-
-(quelpa '(auto-save :fetcher github :repo "manateelazycat/auto-save"))
-
-(quelpa '(clue :fetcher github :repo "AmaiKinono/clue"))
-
-(quelpa '(lsp-bridge
-          :fetcher github
-          :repo "manateelazycat/lsp-bridge"
-          :files ("*")))
-
-(quelpa '(popon :fetcher git :url "https://codeberg.org/akib/emacs-popon.git"))
-(quelpa '(acm-terminal :fetcher github :repo "twlz0ne/acm-terminal"))
-
-(quelpa '(org-mac-link :fetcher github :repo "ymfsing/org-mac-link"))
-
-(quelpa '(org-noter-plus :fetcher github :repo "yuchen-lea/org-noter-plus"))
-
-(quelpa '(org-media-note :fetcher github :repo "yuchen-lea/org-media-note"))
+(quelpa '(once :fetcher github :repo "emacs-magus/once" :files (:defaults "once-setup/once-setup.el")))
+(quelpa '(color-theme-sanityinc-tomorrow :fetcher github :repo "ssl19/color-theme-sanityinc-tomorrow"))
 
 
-;; some pinned packages
+(defmacro package! (package)
+  (when (and (listp package) (or (eq '\` (car package))
+                                 (eq 'quote (car package))))
+    (setq package (eval package)))
+  (cl-destructuring-bind (&key url host repo files &allow-other-keys) (cdr package)
+    (let* ((pkg (car package))
+           ;; TODO: support doom's :fork, :pin keywords
+           (repo-or-url (pcase host
+                          ('github `(:fetcher ,host :repo ,repo))
+                          ('gitlab `(:fetcher ,host :repo ,repo))
+                          (`codeberg `(:fetcher git :url ,(concat "https://codeberg.org/" repo)))
+                          (`sourcehut `(:fetcher git :url ,(concat "https://git.sr.ht/~" repo)))
+                          (_ nil))))
+      `(quelpa '(,pkg ,@(if repo-or-url repo-or-url url)  ,@(if files `(:files ,files)))))))
 
-;; (quelpa '(telega
-;;           :fetcher github
-;;           :repo "zevlg/telega.el"
-;;           :branch "release-0.8.0"
-;;           :files (:defaults "etc" "server" "contrib" "Makefile")))
+(package! (blackout :host github :repo "raxod502/blackout"))
 
-;; (quelpa '(aggressive-indent
-;;           :fetcher github
-;;           :repo "Malabarba/aggressive-indent-mode"
-;;           :commit "70b3f0add29faff41e480e82930a231d88ee9ca7"
-;;           :files ("*.el")))
+;; TODO:
+;; (package! (libgit
+;;            :host github
+;;            :repo "magit/libegit2"
+;;            :files ("CMakeLists.txt"
+;;                    ("libgit2" "libgit2/cmake")
+;;                    ("libgit2" "libgit2/CMakeLists.txt")
+;;                    ("libgit2" "libgit2/COPYING")
+;;                    ("libgit2" "libgit2/deps")
+;;                    ("libgit2" "libgit2/.HEADER")
+;;                    ("libgit2" "libgit2/include")
+;;                    ("libgit2" "libgit2/libgit2_clar.supp")
+;;                    ("libgit2" "libgit2/libgit2.pc.in")
+;;                    ("libgit2" "libgit2/script")
+;;                    ("libgit2" "libgit2/src")
+;;                    "libgit.el"
+;;                    "Makefile"
+;;                    "src"
+;;                    "uthash")))
 
+;; (package! (magit-libgit
+;;            :host github
+;;            :repo "magit/magit"
+;;            :files ("lisp/magit-libgit.el"
+;;                    "lisp/magit-libgit-pkg.el")))
+
+
+(package! (corfu-quick-access :host codeberg :repo "spike_spiegel/corfu-quick-access.el"))
+(package! (eglot-grammarly :host github :repo "emacs-grammarly/eglot-grammarly"))
+(package! (easy-kill-extras :host github
+                            :build (:not autoloads)
+                            :repo "vconcat/easy-kill-extras.el"))
+(package! (chairs :host github :repo "ssl19/chairs.el"))
+(package! (bookmark+ :host github :repo "emacsmirror/bookmark-plus"))
+(package! (d2-mode :host github :repo "andorsk/d2-mode"))
+(package! (sly-el-indent :host github :repo "cireu/sly-el-indent" :files ("*.el" "lib")))
+(package! (ox-odt
+           :host github
+           :repo "kjambunathan/org-mode-ox-odt"
+           :files ("lisp/ox-odt.el"
+                   "lisp/odt.el"
+                   "etc"
+                   "docs"
+                   "contrib/odt/LibreOffice")))
+(package! (org-extra-emphasis :host github :repo "QiangF/org-extra-emphasis"))
+(package! (denote :type git :host sourcehut :repo "protesilaos/denote" :files ("*.el")))
+(package! (consult-notes :type git :host github :repo "mclear-tools/consult-notes"))
 
 ;;; init.el ends here

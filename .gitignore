@@ -26,3 +26,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+/transient/
+/elpa/
+/eln-cache/
+/quelpa/
