@@ -19,7 +19,7 @@ Just setup =package-archives= in your =init.el= file.
 #+BEGIN_SRC emacs-lisp
 
 (setq package-archives
-      '(("myelpa" . "https://raw.githubusercontent.com/ymfsing/emacs-packages/elpa/")))
+      '(("myelpa" . "https://raw.githubusercontent.com/ssl19/emacs-packages/elpa/")))
 
 #+END_SRC
 
@@ -28,6 +28,21 @@ Just setup =package-archives= in your =init.el= file.
 #+begin_src shell
 
 cd ~/.emacs.d
-git submodule add -b package https://github.com/ymfsing/emacs-packages external-packages
+git submodule add -b package https://github.com/ssl19/emacs-packages external-packages
 
 #+end_src
+
+* Contained Packages
+
+** [[https://github.com/emacs-magus/once][Once]]
+** [[https://github.com/ssl19/color-theme-sanityinc-tomorrow][ssl19/color-theme-sanityinc-tomorrow]]
+** [[https://github.com/raxod502/blackout][blackout]]
+** [[https://codeberg.org/spike_spiegel/corfu-quick-access.el][spike_spiegel/corfu-quick-access.el]]
+** [[https://github.com/emacs-grammarly/eglot-grammarly][emacs-grammarly/eglot-grammarly]]
+** [[https://github.com/vconcat/easy-kill-extras.el][vconcat/easy-kill-extras.el]]
+** [[https://github.com/ssl19/chairs.el][ssl19/chairs.el]]
+** [[https://www.emacswiki.org/emacs/download/bookmark%2b.el][bookmark-plus]]
+** [[https://github.com/kjambunathan/org-mode-ox-odt][kjambunathan/org-mode-ox-odt]]
+** [[https://github.com/QiangF/org-extra-emphasis][QiangF/org-extra-emphasis]]
+** [[https://github.com/mclear-tools/consult-notes][mclear-tools/consult-notes]]
+** [[https://git.sr.ht/~protesilaos/denote][protesilaos/denote]]

@@ -25,10 +25,11 @@
                                    ("nongnu" . 30)
                                    ("elpa"   . 10)))
 
-(package-initialize)
 (package-refresh-contents)
 
-(setq native-comp-jit-compilation nil)
+(when (boundp 'native-comp-jit-compilation)
+  (setq native-comp-jit-compilation nil))
+
 (defvar mypackages
   '(gnu-elpa-keyring-update
     quelpa
@@ -45,6 +46,7 @@
           (unless (package-installed-p package)
             (package-install package)))
       mypackages)
+(package-initialize)
 
 ;; quelpa packages https://github.com/quelpa/quelpa
 
