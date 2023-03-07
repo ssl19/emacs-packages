@@ -2,12 +2,20 @@
 
 
 ;;; Commentary:
-;;
+
+;; (setq package-archives
+;; '(("myelpa" . "https://raw.githubusercontent.com/ssl19/emacs-packages/elpa/")))
+
+
+;; git submodule
+
+;; cd ~/.emacs.d
+;; git submodule add -b package https://github.com/ssl19/emacs-packages external-packages
+
 ;; init file for github ci
 
 
 ;;; Code:
-
 
 ;;; Update by adding lines
 
@@ -74,7 +82,7 @@
                           (_ nil))))
       `(quelpa '(,pkg ,@(if repo-or-url repo-or-url url)  ,@(if files `(:files ,files)))))))
 
-(package! (blackout :host github :repo "raxod502/blackout"))
+(package! (setup :host sourcehut :repo "pkal/setup"))
 
 ;; TODO:
 ;; (package! (libgit
@@ -110,7 +118,6 @@
                             :repo "vconcat/easy-kill-extras.el"))
 (package! (chairs :host github :repo "ssl19/chairs.el"))
 (package! (bookmark+ :host github :repo "emacsmirror/bookmark-plus"))
-(package! (d2-mode :host github :repo "andorsk/d2-mode"))
 (package! (sly-el-indent :host github :repo "cireu/sly-el-indent" :files ("*.el" "lib")))
 (package! (ox-odt
            :host github
@@ -121,7 +128,7 @@
                    "docs"
                    "contrib/odt/LibreOffice")))
 (package! (org-extra-emphasis :host github :repo "QiangF/org-extra-emphasis"))
-(package! (denote :type git :host sourcehut :repo "protesilaos/denote" :files ("*.el")))
+(package! (denote :host sourcehut :repo "protesilaos/denote"))
 (package! (consult-notes :type git :host github :repo "mclear-tools/consult-notes"))
 
 ;;; init.el ends here
