@@ -2,10 +2,10 @@
 
 
 ;;; Commentary:
+;; fork from https://github.com/ymfsing/emacs-packages
 
 ;; (setq package-archives
 ;; '(("myelpa" . "https://raw.githubusercontent.com/ssl19/emacs-packages/elpa/")))
-
 
 ;; git submodule
 
