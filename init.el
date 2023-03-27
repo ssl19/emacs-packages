@@ -130,5 +130,5 @@
 (package! (org-extra-emphasis :host github :repo "QiangF/org-extra-emphasis"))
 (package! (denote :host sourcehut :repo "protesilaos/denote"))
 (package! (consult-notes :type git :host github :repo "mclear-tools/consult-notes"))
-
+(package! (chatgpt-shell :type git :host github :repo " xenodium/chatgpt-shell"))
 ;;; init.el ends here
