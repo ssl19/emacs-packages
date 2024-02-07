@@ -115,7 +115,7 @@
 (package! (eglot-grammarly :host github :repo "emacs-grammarly/eglot-grammarly"))
 (package! (easy-kill-extras :host github
                             :build (:not autoloads)
-                            :repo "vconcat/easy-kill-extras.el"))
+                            :repo "knu/easy-kill-extras.el"))
 (package! (chairs :host github :repo "ssl19/chairs.el"))
 (package! (bookmark+ :host github :repo "emacsmirror/bookmark-plus"))
 (package! (sly-el-indent :host github :repo "cireu/sly-el-indent" :files ("*.el" "lib")))
