@@ -133,4 +133,5 @@
 (package! (lsp-java :type git :repo "emacs-lsp/lsp-java" :host github :files (:defaults "icons")))
 (package! (chatgpt-shell :type git :host github :repo "xenodium/chatgpt-shell"))
 (package! (ol-wl :host sourcehut :repo "bzg/org-contrib" :files ("lisp/ol-wl.el")))
+(package! (eglot-booster :host github :repo "jdtsmith/eglot-booster"))
 ;;; init.el ends here
