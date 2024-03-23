@@ -111,7 +111,6 @@
 ;;                    "lisp/magit-libgit-pkg.el")))
 
 
-(package! (corfu-quick-access :host codeberg :repo "spike_spiegel/corfu-quick-access.el"))
 (package! (eglot-grammarly :host github :repo "emacs-grammarly/eglot-grammarly"))
 (package! (easy-kill-extras :host github
                             :build (:not autoloads)
